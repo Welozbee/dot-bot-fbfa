@@ -2,7 +2,7 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
 # Chemin vers le fichier de clé JSON du compte de service
-SERVICE_ACCOUNT_FILE = './credentials.json'
+SERVICE_ACCOUNT_FILE = 'credentials.json'
 
 # Scopes (permissions) nécessaires pour Google Drive
 SCOPES = ['https://www.googleapis.com/auth/drive']
