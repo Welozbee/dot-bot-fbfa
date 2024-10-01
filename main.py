@@ -1,5 +1,6 @@
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+import log
 
 # Chemin vers le fichier de clé JSON du compte de service
 SERVICE_ACCOUNT_FILE = 'credentials.json'
@@ -14,7 +15,7 @@ creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPE
 service = build('drive', 'v3', credentials=creds)
 
 
-def change_permission(file_id, email, role):
+def AddPermission(file_id, email, role):
     """Change les permissions d'un fichier Google Sheets pour un utilisateur spécifique."""
     try:
         # Définir la permission
@@ -31,6 +32,7 @@ def change_permission(file_id, email, role):
             fields='id'
         ).execute()
 
+        log.log_add(email,file_id)
         print(f"Permissions changées pour {email} avec le rôle {role}.")
 
     except Exception as error:
@@ -38,6 +40,8 @@ def change_permission(file_id, email, role):
 
 
 if __name__ == '__main__':
+
+
     # ID du fichier Google Sheets
     file_id = '1F_jaqT-_QWyB2EQJ7FAFfiexnHIqznGIpasnQ8hKc5E'
 
@@ -47,4 +51,4 @@ if __name__ == '__main__':
     # Rôle : 'reader' pour lecture seule, 'writer' pour lecture/écriture
     role = 'writer'
 
-    change_permission(file_id, email, role)
+    AddPermission(file_id, email, role)
