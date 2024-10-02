@@ -3,11 +3,11 @@ from googleapiclient.discovery import build
 import log
 
 creds = Credentials.from_service_account_file("credentials.json", scopes=['https://www.googleapis.com/auth/drive']) # Authentification via le compte de service
-service = build('drive', 'v3', credentials=creds) # CrÈer le service Google Drive
+service = build('drive', 'v3', credentials=creds) # Cr√©er le service Google Drive
 
 def addPermission(sheet_id, email, role):
     try:
-        # DÈfinir la permission
+        # D√©finir la permission
         permission = {
             'type': 'user',
             'role': role,
@@ -22,7 +22,7 @@ def addPermission(sheet_id, email, role):
         ).execute()
 
         log.log_add(email, sheet_id)
-        print(f"Permissions changees pour {email} avec le role {role}.")
+        print(f"Ajout√© le compte {email} avec le r√¥le {role} dans la fiche {sheet_id}.")
 
     except Exception as error:
         log.log_error_change_permissions(email, sheet_id, error)
@@ -30,10 +30,10 @@ def addPermission(sheet_id, email, role):
 
 def removePermission(sheet_id, email):
     try:
-        # RÈcupÈrer les permissions du fichier
+        # R√©cup√©rer les permissions du fichier
         permissions = service.permissions().list(fileId=sheet_id, fields='permissions').execute()
 
-        # Trouver la permission associÈe ‡ l'email
+        # Trouver la permission associ√©e √† l'email
         permission_id = None
         for permission in permissions.get('permissions', []):
             if permission.get('emailAddress') == email:
@@ -47,10 +47,10 @@ def removePermission(sheet_id, email):
                 permissionId=permission_id
             ).execute()
 
-            log.log_add(email, sheet_id)
-            print(f"Permissions supprimees pour {email}.")
+            log.log_remove(email, sheet_id)
+            print(f"Permissions supprim√©es pour {email}.")
         else:
-            print(f"Aucune permission trouvee pour l'utilisateur {email}.")
+            print(f"Aucune permission trouv√©e pour l'utilisateur {email}.")
 
     except Exception as error:
         log.log_error_change_permissions(email, sheet_id, error)
