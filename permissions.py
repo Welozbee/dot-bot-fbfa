@@ -22,7 +22,7 @@ def addPermission(sheet_id, email, role):
         ).execute()
 
         log.log_add(email, sheet_id)
-        print(f"Permissions changées pour {email} avec le rôle {role}.")
+        print(f"Permissions changees pour {email} avec le role {role}.")
 
     except Exception as error:
         log.log_error_change_permissions(email, sheet_id, error)
@@ -48,9 +48,9 @@ def removePermission(sheet_id, email):
             ).execute()
 
             log.log_add(email, sheet_id)
-            print(f"Permissions supprimées pour {email}.")
+            print(f"Permissions supprimees pour {email}.")
         else:
-            print(f"Aucune permission trouvée pour l'utilisateur {email}.")
+            print(f"Aucune permission trouvee pour l'utilisateur {email}.")
 
     except Exception as error:
         log.log_error_change_permissions(email, sheet_id, error)
